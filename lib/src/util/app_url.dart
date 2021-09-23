@@ -1,0 +1,6 @@
+class AppUrl {
+  static const String liveBaseURL =
+      "http://miguelmamani-001-site1.itempurl.com/v_1";
+  static const String localBaseURL = "https://localhost:44345/v_1";
+  static const String baseURL = liveBaseURL;
+}
