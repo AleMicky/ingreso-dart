@@ -16,25 +16,26 @@ class IngresarService with ChangeNotifier {
 
   Future<String?> crearIngreso(
     int tipoFormularioId,
-    String martricula,
     String empresa,
-    String pasajero,
+    String placa,
+    String nombreCompleto,
     String cedula,
+    String pasajero,
     String calle,
     String numero,
+    int evento,
     String observacion,
-    String ingresoSwitch,
   ) async {
     final params = {
       "tipoIngresoId": tipoFormularioId,
       "entidad": empresa,
-      "placa": martricula,
-      "nombreCompleto": "",
+      "placa": placa,
+      "nombreCompleto": nombreCompleto,
       "cedula": cedula,
       "pasajero": pasajero,
       "calle": calle,
       "numero": numero,
-      "evento": 0,
+      "evento": evento,
       "observacion": observacion
     };
 

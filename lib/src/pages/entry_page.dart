@@ -56,20 +56,20 @@ class _FormRntry extends StatelessWidget {
           children: [
             _espacio(
               DropdownButtonFormField<TipoIngreso>(
-                items: headlines
-                    .map(
-                      (value) => DropdownMenuItem(
-                        child: Text(value.descripcion),
-                        value: value,
-                      ),
-                    )
-                    .toList(),
-                // value: _opcionSeleccionada,
+                items: headlines.map((item) {
+                  return new DropdownMenuItem(
+                    child: new Text(item.descripcion),
+                    value: item,
+                  );
+                }).toList(),
+                //value: 2,
                 onSaved: (value) => entryForm.idTipoIngreso = value!.id,
                 decoration: InputDecorations.authInputDecoration(
                   labelText: 'Tipo Ingreso',
                 ),
-                onChanged: (opt) => entryForm.iniciarEvento(opt as TipoIngreso),
+                onChanged: (opt) {
+                  entryForm.iniciarEvento(opt as TipoIngreso);
+                },
               ),
             ),
             entryForm.placaBool
@@ -78,6 +78,7 @@ class _FormRntry extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            initialValue: 'ASD-123',
                             textCapitalization: TextCapitalization.sentences,
                             decoration: InputDecorations.authInputDecoration(
                               labelText: 'Placa',
@@ -224,7 +225,7 @@ class _FormRntry extends StatelessWidget {
                 validator: (value) => (value == null || value.isEmpty)
                     ? 'Por favor ingrese un texto'
                     : null,
-                onChanged: (value) => print(value.trim()),
+                onChanged: (value) => entryForm.observacion = value.trim(),
               ),
             ),
             _espacio(
@@ -233,8 +234,8 @@ class _FormRntry extends StatelessWidget {
                   Expanded(
                     child: SwitchListTile(
                       title: Text('Ingreso'),
-                      value: false,
-                      onChanged: (valor) => print(valor),
+                      value: entryForm.ingreso,
+                      onChanged: (valor) => entryForm.ingreso = valor,
                     ),
                   ),
                   Expanded(
@@ -271,14 +272,15 @@ class _FormRntry extends StatelessWidget {
                               final String? errorMessage =
                                   await ingresoService.crearIngreso(
                                 entryForm.idTipoIngreso,
-                                entryForm.placa,
                                 entryForm.empresa,
-                                entryForm.pasajero,
+                                entryForm.placa,
+                                '',
+                                entryForm.cedula,
                                 'no',
                                 entryForm.calle,
                                 entryForm.numero,
-                                'Prueba',
-                                'si',
+                                entryForm.ingreso ? 1 : 0,
+                                entryForm.observacion,
                               );
                               if (errorMessage == null) {
                                 entryForm.isLoading = false;

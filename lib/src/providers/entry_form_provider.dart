@@ -12,8 +12,10 @@ class EntryFormProvider extends ChangeNotifier {
   String calle = '';
   String numero = '';
   String pasajero = 'no';
+  String observacion = '';
 
   bool _isLoading = false;
+  bool _ingreso = false;
 
   bool _placaBool = false;
   bool _empresaBool = false;
@@ -37,6 +39,8 @@ class EntryFormProvider extends ChangeNotifier {
   bool get fotoPlaca => _fotoPlaca;
   bool get fotoCedula => _fotoCedula;
 
+  bool get ingreso => _ingreso;
+
   void iniciarEvento(TipoIngreso tipo) {
     idTipoIngreso = tipo.id;
     _placaBool = tipo.placa;
@@ -53,6 +57,11 @@ class EntryFormProvider extends ChangeNotifier {
 
   set isLoading(bool value) {
     _isLoading = value;
+    notifyListeners();
+  }
+
+  set ingreso(bool value) {
+    _ingreso = value;
     notifyListeners();
   }
 
